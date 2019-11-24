@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package proto;
+
+service UserCrud {
+    rpc Create(User) returns (Result) {}
+    rpc CreateReturn(User) returns (Result){}
+    rpc Edit(User) returns(Result) {}
+    rpc EditReturn(User) returns(Result) {}
+    rpc Delete(User) returns (Result){}
+    rpc Get(User) returns (Result) {}
+}
+
+message Users {
+    repeated User users = 1;
+}
+
+message TraceInfo{
+    string TraceId = 1;
+    string SpanId = 2;
+    string ParentSpanId = 3;
+}
+message User {
+    oneof status {
+        bool is_new = 1;
+        int64 id = 2;
+    }
+    string name = 3;
+    string email = 4;
+    string password = 5;
+    TraceInfo TraceInfo = 6;
+
+}
+
+message Result {
+    bool value = 1;
+    User user = 2;
+}
+
